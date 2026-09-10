@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('reduce-motion');
+  }
+
   var toggle = document.getElementById('navToggle');
   var navList = document.getElementById('navList');
   if (toggle && navList) {
