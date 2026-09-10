@@ -22,17 +22,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  var revealItems = document.querySelectorAll('.js-reveal');
+  var autoRevealTargets = document.querySelectorAll([
+    '.hero .eyebrow',
+    '.hero h1',
+    '.hero .tagline',
+    '.hero .lead',
+    '.hero .desc',
+    '.hero .meta',
+    '.hero .btn',
+    '.page-hero .kicker',
+    '.page-hero h1',
+    '.page-hero .sub',
+    'section > .wrap > h2, section > .wrap > h1',
+    '.reason',
+    '.flow-step',
+    '.faq-item',
+    '.menu-item',
+    '.reserve-card',
+    '.voice',
+    '.staff-block',
+    '.concerns li',
+    '.post-card',
+    '.final-cta',
+    '.blog-intro',
+    '.article-body',
+    '.side-box',
+    '.access-grid',
+    '.staff-grid',
+    '.space',
+    '.reasons',
+    '.notes',
+    '.pivot'
+  ].join(', '));
+
+  autoRevealTargets.forEach(function (element, index) {
+    if (!element || element.classList.contains('js-reveal') || element.classList.contains('reveal-item')) return;
+    element.classList.add('reveal-item');
+    var delay = (index % 7) * 0.08;
+    element.setAttribute('data-delay', delay.toFixed(2));
+  });
+
+  var revealItems = document.querySelectorAll('.js-reveal, .reveal-item');
   if (revealItems.length) {
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
+            var delay = entry.target.getAttribute('data-delay');
+            if (delay) {
+              entry.target.style.transitionDelay = delay + 's';
+            }
             entry.target.classList.add('is-visible');
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12 });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
       revealItems.forEach(function (item) {
         observer.observe(item);

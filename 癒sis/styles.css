@@ -365,30 +365,149 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
 .post-card{
   border:1px solid var(--line);
   background:rgba(255,255,255,.02);
-  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-  will-change:transform;
+  transition:transform .7s cubic-bezier(.22,1,.36,1), border-color .4s ease, box-shadow .5s ease, opacity .7s ease;
+  will-change:transform, opacity;
+  transform:translateY(18px);
+  opacity:0;
+}
+.post-card.is-visible{
+  opacity:1;
+  transform:translateY(0);
 }
 .post-card:hover{
   border-color:rgba(217,198,154,.7);
-  transform:translateY(-2px);
-  box-shadow:0 12px 26px rgba(10,18,30,.12);
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(10,18,30,.14);
 }
 .post-card:hover .btn-small{
   transform:translateX(4px);
 }
+.post-card:nth-child(2).is-visible{transition-delay:.12s;}
+.post-card:nth-child(3).is-visible{transition-delay:.22s;}
+.post-card:hover .post-link::before{transform:scaleX(1);}
 .post-link{
   display:block;
   padding:30px 28px 26px;
+  position:relative;
+  overflow:hidden;
 }
-.js-reveal{
+.post-link::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg, rgba(217,198,154,.10), rgba(217,198,154,.02));
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .6s ease;
+}
+.post-link > *{position:relative;z-index:1;}
+.read-more-arrow{
+  display:inline-block;
+  transition:transform .35s ease;
+}
+.post-card:hover .read-more-arrow{transform:translateX(6px);}
+.js-reveal,
+.reveal-item{
   opacity:0;
-  transform:translateY(24px);
-  transition:opacity .7s ease, transform .7s ease;
+  transform:translateY(40px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1), filter .8s ease;
+  will-change:opacity, transform;
 }
-.js-reveal.is-visible{
+.js-reveal.is-visible,
+.reveal-item.is-visible{
   opacity:1;
   transform:translateY(0);
 }
+
+.hero .eyebrow,
+.hero h1,
+.hero .tagline,
+.hero .lead,
+.hero .desc,
+.hero .meta,
+.hero .btn,
+.page-hero .kicker,
+.page-hero h1,
+.page-hero .sub,
+.pivot,
+.final-cta,
+.article-body,
+.side-box,
+.blog-intro,
+.reason,
+.flow-step,
+.faq-item,
+.menu-item,
+.reserve-card,
+.voice,
+.staff-block,
+.concerns li,
+.post-card,
+.access-grid,
+.staff-grid,
+.space,
+.reasons,
+.notes,
+.section-title,
+section > .wrap > h2,
+section > .wrap > h1 {
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);
+}
+.hero .eyebrow.is-visible,
+.hero h1.is-visible,
+.hero .tagline.is-visible,
+.hero .lead.is-visible,
+.hero .desc.is-visible,
+.hero .meta.is-visible,
+.hero .btn.is-visible,
+.page-hero .kicker.is-visible,
+.page-hero h1.is-visible,
+.page-hero .sub.is-visible,
+.pivot.is-visible,
+.final-cta.is-visible,
+.article-body.is-visible,
+.side-box.is-visible,
+.blog-intro.is-visible,
+.reason.is-visible,
+.flow-step.is-visible,
+.faq-item.is-visible,
+.menu-item.is-visible,
+.reserve-card.is-visible,
+.voice.is-visible,
+.staff-block.is-visible,
+.concerns li.is-visible,
+.post-card.is-visible,
+.access-grid.is-visible,
+.staff-grid.is-visible,
+.space.is-visible,
+.reasons.is-visible,
+.notes.is-visible,
+.section-title.is-visible,
+section > .wrap > h2.is-visible,
+section > .wrap > h1.is-visible {
+  opacity:1;
+  transform:translateY(0);
+}
+.page-hero .kicker,
+.page-hero h1,
+.page-hero .sub,
+.final-cta h2,
+.final-cta p,
+.article-body,
+.side-box,
+.blog-intro,
+.post-card,
+.post-meta,
+.post-link h2,
+.post-link p,
+.post-link .btn-small{
+  transition-delay:0s;
+}
+.page-hero .kicker{transition-delay:.08s;}
+.page-hero h1{transition-delay:.18s;}
+.page-hero .sub{transition-delay:.28s;}
 .post-meta{
   display:flex;
   flex-wrap:wrap;
@@ -412,6 +531,22 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
 .cta-row{display:flex;flex-wrap:wrap;justify-content:center;gap:16px 18px;margin-top:26px;}
 
 .article-page{padding-top:28px;}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .js-reveal,
+  .reveal-item,
+  .post-card {
+    opacity:1 !important;
+    transform:none !important;
+  }
+}
 .article-layout{
   display:grid;
   grid-template-columns:minmax(0,1.8fr) minmax(260px,.8fr);
