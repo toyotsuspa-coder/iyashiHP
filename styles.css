@@ -130,6 +130,7 @@ header.site{
     grid-column:2;justify-self:end;order:0;
     margin-left:0;gap:16px;width:auto;
     justify-content:flex-end;margin-top:0;
+    position:absolute;top:48px;right:20px;
   }
   .nav-hours{text-align:right;}
   .nav ul{
@@ -218,6 +219,8 @@ header.site{
 .btn:hover{background:var(--gold-soft);color:var(--navy-deep);}
 .btn.solid{background:var(--gold-soft);color:var(--navy-deep);border-color:var(--gold-soft);box-shadow:0 10px 28px rgba(185,154,91,.25);}
 .btn.solid:hover{background:transparent;color:var(--cream);box-shadow:0 10px 28px rgba(185,154,91,.12);transform:translateY(-1px);}
+.staff-apply .btn.solid{font-size:1.17rem;color:#000;}
+.staff-apply .btn.solid:hover{color:#000;}
 
 
 /* ---- section shells ---- */
