@@ -98,7 +98,8 @@ header.site{
 .nav-tel:hover{color:var(--gold-soft);border-bottom-color:var(--gold-soft);}
 .phone-ruby ruby{ruby-position:over;}
 .phone-ruby rt{
-  color:var(--gold);
+  color:#fff;
+  font-family:'Shippori Mincho', serif;
   font-size:.55em;
   font-weight:700;
   letter-spacing:0;
