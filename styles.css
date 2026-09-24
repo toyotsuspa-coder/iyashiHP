@@ -619,6 +619,14 @@ section > .wrap > h1.is-visible {
   letter-spacing:.08em;
   margin-top:12px;
 }
+.article-breadcrumb{font-size:.78rem;color:rgba(246,242,234,.62);margin-bottom:14px;}
+.article-breadcrumb a{text-decoration:underline;text-underline-offset:3px;}
+.article-summary,.author-box{margin:28px 0;padding:24px;border:1px solid var(--line);background:rgba(20,27,46,.38);}
+.article-summary h2,.author-box h2{font-size:1.25rem;margin-bottom:12px;}
+.article-summary ul{padding-left:1.3em;}
+.author-box p{font-size:.88rem;color:rgba(246,242,234,.76);}
+.eeat-section{border-top:1px solid var(--line);}
+.eeat-points{margin-top:34px;}
 .side-panel{display:flex;flex-direction:column;gap:24px;}
 .side-box{
   border:1px solid var(--line);
