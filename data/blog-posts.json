@@ -138,7 +138,7 @@
     "status": "draft"
   },
   {
-    "id": "head-02-draft",
+    "id": "head-02",
     "slug": "dry-head-spa-clothing-preparation",
     "title": "ドライヘッドスパの服装と準備",
     "description": "ドライヘッドスパを受ける前の服装や準備について、癒sisの案内をもとにご紹介します。着替えの要否、予約方法、アクセスを来店前に確認できます。",
@@ -198,6 +198,6 @@
     ],
     "relatedPosts": ["sleep-insomnia", "shoulder-stiffness"],
     "cta": {"heading": "来店前の情報を確認する", "text": "癒sisのメニュー、予約方法、アクセスをご確認いただけます。", "links": ["menu.html", "reserve.html", "access.html"]},
-    "status": "draft"
+    "status": "published"
   }
 ]
