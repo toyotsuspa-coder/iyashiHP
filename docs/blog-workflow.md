@@ -1,18 +1,19 @@
 # ブログ運用手順
 
-## 公開記事を追加する
+## 記事を投稿する
 
-1. `data/blog-posts.json` に記事を1件追加する。
-2. `status` を `draft` のまま本文と関連記事を確認する。
-3. 公開準備ができたら `status` を `published` に変更する。
-4. 次のコマンドを実行する。
+1. `data/blog-posts.json` に記事を1件追加し、通常は `status` を `published` にする。
+2. 記事内容、関連記事、表現ルール、医療機関への案内を確認する。
+3. 次のコマンドを実行する。
 
 ```powershell
 python tools/generate-blog.py
 python tools/validate-blog.py
 ```
 
-`published` の記事だけが新規HTML、`blog.html`、`sitemap.xml` に反映されます。`planned` と `draft` は公開されません。既存4記事は `sourceFile` を持つため、本文を再生成せず、slugと公開URLを保持します。
+検証に通ったら、変更をコミットして `main` へ push します。GitHub Pagesへの反映を確認します。通常投稿で公開確認を待つ工程は設けません。
+
+`published` の記事だけが新規HTML、`blog.html`、`sitemap.xml` に反映されます。公開保留を明示された記事だけ `draft` にし、`planned` と `draft` は一覧とsitemapに含めません。既存4記事は `sourceFile` を持つため、本文を再生成せず、slugと公開URLを保持します。
 
 ## 記事データの書き方
 

@@ -318,6 +318,6 @@
     ],
     "relatedPosts": ["cold-swelling"],
     "cta": {"heading": "癒sisのメニューを確認する", "text": "癒sisのメニューや予約方法をご確認いただけます。", "links": ["menu.html", "reserve.html"]},
-    "status": "draft"
+    "status": "published"
   }
 ]
