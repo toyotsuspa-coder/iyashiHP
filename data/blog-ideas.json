@@ -1,6 +1,4 @@
 [
-  {"ideaId":"head-01","title":"ドライヘッドスパはどんな施術？初めての流れ","category":"ドライヘッドスパ","primaryIntent":"初回施術の流れを知りたい","targetQuery":"ドライヘッドスパ 初めて 流れ","differentiation":"癒sisの実際の受付から退店までを確認して具体化","status":"planned"},
-  {"ideaId":"head-02","title":"ドライヘッドスパの服装と準備","category":"ドライヘッドスパ","primaryIntent":"来店前の準備を知りたい","targetQuery":"ドライヘッドスパ 服装 準備","differentiation":"着替え不要という確認済み情報と店舗案内を中心にする","status":"planned"},
   {"ideaId":"head-03","title":"ドライヘッドスパと足つぼを組み合わせるときの考え方","category":"ドライヘッドスパ","primaryIntent":"施術メニューの選び方を知りたい","targetQuery":"ドライヘッドスパ 足つぼ 組み合わせ","differentiation":"実在するメニューの選択基準を店舗で確認して執筆","status":"planned"},
   {"ideaId":"head-04","title":"仕事帰りにドライヘッドスパを利用するときのポイント","category":"ドライヘッドスパ","primaryIntent":"仕事帰りの利用方法を知りたい","targetQuery":"仕事帰り ドライヘッドスパ","differentiation":"豊津駅徒歩30秒と営業時間を事実として案内","status":"planned"},
   {"ideaId":"head-05","title":"ドライヘッドスパで確認しておきたいこと","category":"ドライヘッドスパ","primaryIntent":"施術前の相談事項を知りたい","targetQuery":"ドライヘッドスパ 施術前 確認","differentiation":"癒sisでのカウンセリング項目を実情報で補足","status":"planned"},
