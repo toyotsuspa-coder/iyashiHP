@@ -370,9 +370,9 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
   margin-bottom:20px;
 }
 .hero-photo-copy h1{
-  font-size:1.02rem;
+  font-size:clamp(.65rem, 3.75vw, 1.02rem);
   line-height:1.5;
-  max-width:20em;
+  max-width:none;
 }
 .hero .hero-photo-copy h1{
   margin-bottom:0;
