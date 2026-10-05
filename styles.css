@@ -199,12 +199,12 @@ header.site{
 
 /* ---- full hero (home page only) ---- */
 .hero{
-  position:relative;min-height:56vh;
-  display:flex;align-items:flex-start;color:var(--cream);
+  --hero-image-height:clamp(320px, 56vh, 560px);
+  position:relative;color:var(--cream);
   overflow:hidden;
   background:var(--navy-deep);
 }
-.hero-slideshow{position:absolute;inset:0;z-index:0;}
+.hero-slideshow{position:absolute;top:0;left:0;right:0;height:var(--hero-image-height);z-index:0;}
 .hero-slide{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;object-position:center;
@@ -213,11 +213,21 @@ header.site{
 }
 .hero-slide.is-active{opacity:1;}
 .hero::before{
-  content:"";position:absolute;inset:0;z-index:1;
+  content:"";position:absolute;top:0;left:0;right:0;height:var(--hero-image-height);z-index:1;
   background:linear-gradient(180deg, rgba(20,27,46,.35) 0%, rgba(20,27,46,.55) 45%, rgba(20,27,46,.92) 100%);
   pointer-events:none;
 }
-.hero-inner{position:relative;z-index:2;width:100%;padding:56px 28px 60px;max-width:1040px;margin:0 auto;}
+.hero-photo-copy{
+  position:absolute;top:0;left:50%;z-index:2;
+  width:100%;max-width:1040px;height:var(--hero-image-height);
+  padding:56px 28px;
+  display:flex;flex-direction:column;
+  transform:translateX(-50%);
+}
+.hero-photo-copy .eyebrow,
+.hero-photo-copy h1{text-shadow:0 2px 8px rgba(10,16,29,.72);}
+.hero-photo-copy h1{margin: auto 0 0;}
+.hero-inner{position:relative;z-index:2;width:100%;padding:32px 28px 60px;max-width:1040px;margin:var(--hero-image-height) auto 0;}
 .hero .eyebrow{
   display:inline-block;font-size:1.02rem;letter-spacing:.24em;color:var(--gold-soft);
   border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:26px;
@@ -358,6 +368,14 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
   color:rgba(246,242,234,.58);
   max-width:34em;
   margin-bottom:20px;
+}
+.hero-photo-copy h1{
+  font-size:1.02rem;
+  line-height:1.5;
+  max-width:20em;
+}
+.hero .hero-photo-copy h1{
+  margin-bottom:0;
 }
 .hero .tagline{
   font-family:'Shippori Mincho', serif;
@@ -735,11 +753,12 @@ footer nav a:hover{color:var(--gold-soft);}
 /* ---- mobile fine-tuning (spacing / legibility, no layout or color overhaul) ---- */
 @media(max-width:760px){
   .hero-slideshow{height:min(75vw, 56vh);}
+  .hero{--hero-image-height:min(75vw, 56vh);}
   .hero-slide{transform:none;}
+  .hero-photo-copy{padding:28px 22px;}
+  .hero-inner{padding:24px 22px 48px;}
   section{padding:64px 0;}
   .page-hero{padding:48px 0 36px;}
-  .hero{min-height:auto;}
-  .hero-inner{padding:48px 22px 48px;}
   .hero .eyebrow{margin-bottom:20px;}
   h2.title{margin-bottom:16px;}
   .final-cta h2{margin-bottom:16px;}
