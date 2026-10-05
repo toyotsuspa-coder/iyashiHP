@@ -40,6 +40,9 @@ img{max-width:100%;display:block;}
 
 /* ---- site header / nav ---- */
 header.site{
+  position:sticky;
+  top:0;
+  z-index:1000;
   background:var(--navy-deep);
   border-bottom:1px solid rgba(185,154,91,0.25);
 }
@@ -198,12 +201,23 @@ header.site{
 .hero{
   position:relative;min-height:56vh;
   display:flex;align-items:flex-start;color:var(--cream);
-  background:
-    linear-gradient(180deg, rgba(20,27,46,.35) 0%, rgba(20,27,46,.55) 45%, rgba(20,27,46,.92) 100%),
-    url('https://lh3.googleusercontent.com/sitesv/AG8ngQWCb8-lK4bOd6xRklpQ0MiZloeM8sMgOxLJZVa8GAPMx7qAdSATSDRGCrmRrxKqfgkkqQPYFleekyMYuMdxyHsCZGDtyvAREb1qJc-ymWs5xePFOVVZ_AQnwo8Hypi4CYh62zXqKXrWXHmL1Fc9XFheFfzzxN0IeOSY5A4VUGBWudO1_R4DxV3IVVbi-Rm8rycLqaZzGVNw4XlAjhnPd2NGvUY0UDiAEny0-Bwm=w1600')
-    center/cover no-repeat;
+  overflow:hidden;
+  background:var(--navy-deep);
 }
-.hero-inner{width:100%;padding:56px 28px 60px;max-width:1040px;margin:0 auto;}
+.hero-slideshow{position:absolute;inset:0;z-index:0;}
+.hero-slide{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center;
+  transform:scale(.85);
+  opacity:0;transition:opacity 1.2s ease;
+}
+.hero-slide.is-active{opacity:1;}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(180deg, rgba(20,27,46,.35) 0%, rgba(20,27,46,.55) 45%, rgba(20,27,46,.92) 100%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:2;width:100%;padding:56px 28px 60px;max-width:1040px;margin:0 auto;}
 .hero .eyebrow{
   display:inline-block;font-size:1.02rem;letter-spacing:.24em;color:var(--gold-soft);
   border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:26px;
@@ -720,6 +734,8 @@ footer nav a:hover{color:var(--gold-soft);}
 
 /* ---- mobile fine-tuning (spacing / legibility, no layout or color overhaul) ---- */
 @media(max-width:760px){
+  .hero-slideshow{height:min(75vw, 56vh);}
+  .hero-slide{transform:none;}
   section{padding:64px 0;}
   .page-hero{padding:48px 0 36px;}
   .hero{min-height:auto;}

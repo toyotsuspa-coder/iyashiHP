@@ -3,6 +3,23 @@ document.addEventListener('DOMContentLoaded', function () {
     document.documentElement.classList.add('reduce-motion');
   }
 
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.hero-slide'));
+  slides.sort(function (a, b) {
+    return a.getAttribute('src').localeCompare(b.getAttribute('src'), 'en', { numeric: true });
+  });
+  slides.forEach(function (slide, index) {
+    slide.classList.toggle('is-active', index === 0);
+  });
+
+  if (slides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var activeSlide = 0;
+    window.setInterval(function () {
+      slides[activeSlide].classList.remove('is-active');
+      activeSlide = (activeSlide + 1) % slides.length;
+      slides[activeSlide].classList.add('is-active');
+    }, 5000);
+  }
+
   var toggle = document.getElementById('navToggle');
   var navList = document.getElementById('navList');
   if (toggle && navList) {
