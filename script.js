@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
       slides[activeSlide].classList.remove('is-active');
       activeSlide = (activeSlide + 1) % slides.length;
       slides[activeSlide].classList.add('is-active');
-    }, 5000);
+    }, 2000);
   }
 
   var toggle = document.getElementById('navToggle');
