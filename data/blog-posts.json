@@ -391,6 +391,6 @@
     ],
     "relatedPosts": ["head-02", "head-01"],
     "cta": {"heading": "仕事帰りの予約前に確認する", "text": "癒sisの営業時間、メニュー、予約方法をご確認いただけます。", "links": ["reserve.html", "menu.html", "access.html"]},
-    "status": "draft"
+    "status": "published"
   }
 ]
