@@ -27,7 +27,7 @@ def main():
     duplicates([post.get("description") for post in posts], "description")
     duplicates([post.get("primaryIntent") for post in posts], "primaryIntent")
     duplicates([idea.get("targetQuery") for idea in ideas], "targetQuery")
-    required = ["id", "slug", "title", "description", "category", "primaryIntent", "datePublished", "dateModified", "authorName", "excerpt", "intro", "relatedPosts", "cta", "status"]
+    required = ["id", "slug", "title", "description", "category", "primaryIntent", "datePublished", "dateModified", "authorName", "excerpt", "intro", "keyPoints", "relatedPosts", "cta", "status"]
     by_id = {post.get("id"): post for post in posts}
     for post in published:
         for field in required:
@@ -37,6 +37,17 @@ def main():
             errors.append(f"{post['id']}: dateModified is before datePublished")
         if not post.get("sourceFile") and not post.get("sections"):
             errors.append(f"{post['id']}: generated article needs sections")
+        points = post.get("keyPoints", [])
+        if not 3 <= len(points) <= 5:
+            errors.append(f"{post['id']}: expected 3-5 keyPoints")
+        article_path = ROOT / (post.get("sourceFile") or f"blog-{post['slug']}.html")
+        if article_path.exists():
+            article_text = article_path.read_text(encoding="utf-8")
+            match = re.search(r"<h2>\s*ポイント\s*</h2>\s*<ul class=\"article-key-points\">(.*?)</ul>", article_text, re.S)
+            if not match:
+                errors.append(f"{article_path.name}: missing points list after ポイント heading")
+            elif len(re.findall(r"<li\b", match.group(1), re.I)) != len(points):
+                errors.append(f"{article_path.name}: rendered points do not match keyPoints")
         for related in post.get("relatedPosts", []):
             if related not in by_id:
                 errors.append(f"{post['id']}: related post does not exist: {related}")

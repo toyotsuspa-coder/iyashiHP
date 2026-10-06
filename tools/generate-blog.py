@@ -43,6 +43,13 @@ def render_sections(post):
     return "".join(chunks)
 
 
+def render_key_points(post):
+    points = post.get("keyPoints", [])
+    if not points and post.get("conclusion"):
+        points = [post["conclusion"]]
+    return "".join(f"<li>{esc(point)}</li>" for point in points)
+
+
 def render_faq(post):
     items = []
     for item in post.get("faq", []):
@@ -84,7 +91,7 @@ def render_post(post, template, by_id):
         "title": esc(post["title"]), "description": esc(post["description"]), "canonical": canonical,
         "category": esc(post["category"]), "intro": esc(post["intro"]), "datePublished": esc(post["datePublished"]),
         "dateModified": esc(post["dateModified"]), "primaryIntent": esc(post["primaryIntent"]),
-        "conclusion": esc(post.get("conclusion", post["intro"])), "sections": render_sections(post),
+        "keyPoints": render_key_points(post), "sections": render_sections(post),
         "faq": render_faq(post),
         "perspective": esc(post.get("perspective", "癒sisでは、施術前にその日の過ごし方や気になる部位をうかがい、無理のないリラクゼーションの時間をご案内します。")),
         "daily": render_daily(post),
