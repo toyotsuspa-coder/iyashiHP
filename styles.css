@@ -410,11 +410,13 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
   color:rgba(246,242,234,.75);
   font-size:1rem;
 }
+section.blog-listing{padding:48px 0 90px;}
 .post-list{
   margin-top:44px;
   display:grid;
   gap:26px;
 }
+section.blog-listing .post-list{margin-top:0;}
 .post-card{
   border:1px solid var(--line);
   background:rgba(255,255,255,.02);
@@ -767,5 +769,6 @@ footer nav a:hover{color:var(--gold-soft);}
 @media(max-width:480px){
   .btn{padding:14px 30px;font-size:.85rem;letter-spacing:.1em;}
   section{padding:52px 0;}
+  section.blog-listing{padding:32px 0 52px;}
   .page-hero{padding:40px 0 30px;}
 }
