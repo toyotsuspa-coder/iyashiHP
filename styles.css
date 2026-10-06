@@ -211,6 +211,7 @@ header.site{
   transform:scale(.85);
   opacity:0;transition:opacity 1.2s ease;
 }
+.hero-slide--pulled-back{transform:scale(.65);}
 .hero-slide.is-active{opacity:1;}
 .hero::before{
   content:"";position:absolute;top:0;left:0;right:0;height:var(--hero-image-height);z-index:1;
@@ -757,6 +758,7 @@ footer nav a:hover{color:var(--gold-soft);}
   .hero-slideshow{height:min(75vw, 56vh);}
   .hero{--hero-image-height:min(75vw, 56vh);}
   .hero-slide{transform:none;}
+  .hero-slide--pulled-back{transform:scale(.8);}
   .hero-photo-copy{padding:28px 22px;}
   .hero-inner{padding:24px 22px 48px;}
   section{padding:64px 0;}
