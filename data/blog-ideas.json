@@ -5,7 +5,7 @@
   {"ideaId":"head-06","title":"頭皮を強く押されるのが苦手な人の相談方法","category":"ドライヘッドスパ","primaryIntent":"力加減を相談したい","targetQuery":"ヘッドスパ 力加減 苦手","differentiation":"施術中の伝え方を接客の実例で説明","status":"planned"},
   {"ideaId":"head-07","title":"ドライヘッドスパを受ける時間帯の選び方","category":"ドライヘッドスパ","primaryIntent":"予約時間を選びたい","targetQuery":"ドライヘッドスパ 時間帯 おすすめ","differentiation":"生活目的別に整理し断定的な効果表現を避ける","status":"planned"},
   {"ideaId":"head-08","title":"ドライヘッドスパの施術後に気をつけたい過ごし方","category":"ドライヘッドスパ","primaryIntent":"施術後の過ごし方を知りたい","targetQuery":"ドライヘッドスパ 施術後 過ごし方","differentiation":"癒sisの案内内容を確認して掲載","status":"planned"},
-  {"ideaId":"head-09","title":"男性がドライヘッドスパを利用するときの疑問","category":"ドライヘッドスパ","primaryIntent":"男性の利用可否と準備を知りたい","targetQuery":"ドライヘッドスパ 男性 利用","differentiation":"男性利用可能という既存表記と予約導線を案内","status":"planned"},
+  {"ideaId":"head-09","title":"男性がドライヘッドスパを利用するときの疑問","category":"ドライヘッドスパ","primaryIntent":"男性の利用可否と準備を知りたい","targetQuery":"ドライヘッドスパ 男性 利用","differentiation":"男性利用可能という既存表記と予約導線を案内","status":"draft"},
   {"ideaId":"head-10","title":"完全個室のドライヘッドスパを選ぶときの見方","category":"ドライヘッドスパ","primaryIntent":"店舗選びの基準を知りたい","targetQuery":"ドライヘッドスパ 完全個室 選び方","differentiation":"癒sisの空間づくりは確認できる事実だけで紹介","status":"planned"},
   {"ideaId":"head-11","title":"ドライヘッドスパの予約前に伝えたい悩み","category":"ドライヘッドスパ","primaryIntent":"予約時の相談内容を整理したい","targetQuery":"ドライヘッドスパ 予約 相談","differentiation":"電話・LINE・予約ページの実導線を確認","status":"planned"},
   {"ideaId":"head-12","title":"短い休息時間に利用できるメニューの選び方","category":"ドライヘッドスパ","primaryIntent":"短時間メニューを選びたい","targetQuery":"ドライヘッドスパ 短時間 メニュー","differentiation":"現行menu.htmlの実メニューだけで構成","status":"planned"},
