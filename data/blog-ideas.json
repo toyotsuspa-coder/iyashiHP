@@ -90,7 +90,7 @@
   {"ideaId":"local-06","title":"豊津駅周辺で静かに休む時間を作る","category":"吹田・豊津・癒sis","primaryIntent":"豊津で休息場所を探したい","targetQuery":"豊津駅 リラクゼーション 休息","differentiation":"癒sisの個室情報は確認済み範囲だけ記載","status":"planned"},
   {"ideaId":"local-07","title":"癒sisに初めて予約するときの流れ","category":"吹田・豊津・癒sis","primaryIntent":"初回予約の流れを知りたい","targetQuery":"癒sis 初回 予約 流れ","differentiation":"予約ページと店舗案内の実情報を整理","status":"planned"},
   {"ideaId":"local-08","title":"吹田市垂水町の店舗住所を確認する方法","category":"吹田・豊津・癒sis","primaryIntent":"店舗住所を確認したい","targetQuery":"癒sis 住所 吹田 垂水町","differentiation":"NAPを既存HTMLと一致させる","status":"planned"},
-  {"ideaId":"local-09","title":"癒sisの営業時間と最終受付を確認","category":"吹田・豊津・癒sis","primaryIntent":"営業時間を知りたい","targetQuery":"癒sis 営業時間","differentiation":"不定休を含む既存表記をそのまま確認","status":"planned"},
+  {"ideaId":"local-09","title":"癒sisの営業時間と予約枠を確認","category":"吹田・豊津・癒sis","primaryIntent":"営業時間を知りたい","targetQuery":"癒sis 営業時間","differentiation":"営業時間と予約枠を最新情報で案内","status":"planned"},
   {"ideaId":"local-10","title":"豊津駅から予約時間に余裕を持つ考え方","category":"吹田・豊津・癒sis","primaryIntent":"来店時間を計画したい","targetQuery":"豊津駅 癒sis 来店時間","differentiation":"徒歩30秒の既存情報と予約案内を接続","status":"planned"},
   {"ideaId":"local-11","title":"癒sisで相談しやすい施術前の伝え方","category":"吹田・豊津・癒sis","primaryIntent":"店舗で希望を伝えたい","targetQuery":"癒sis 施術 相談","differentiation":"接客情報は店舗確認後に追加するTODO設計","status":"planned"},
   {"ideaId":"local-12","title":"吹田市で足つぼを検討するときの準備","category":"吹田・豊津・癒sis","primaryIntent":"吹田市で足つぼを探したい","targetQuery":"吹田市 足つぼ 準備","differentiation":"癒sisの実メニューへの導線を中心にする","status":"planned"},
