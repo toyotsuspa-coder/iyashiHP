@@ -3,8 +3,6 @@ import json
 import re
 from datetime import date
 from pathlib import Path
-from xml.etree.ElementTree import Element, SubElement, ElementTree
-
 ROOT = Path(__file__).resolve().parents[1]
 POSTS_FILE = ROOT / "data" / "blog-posts.json"
 TEMPLATE_FILE = ROOT / "templates" / "blog-article.html"
@@ -134,22 +132,20 @@ def update_blog_index(posts):
 
 
 def update_sitemap(posts):
-    root = Element("urlset", {"xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"})
-    entries = []
+    urls = []
     for page in MAIN_PAGES:
-        entries.append((BASE_URL + page, ""))
+        path = ROOT / (page or "index.html")
+        if path.is_file():
+            urls.append(BASE_URL + page)
     for post in posts:
-        entries.append((BASE_URL + post_url(post), post["dateModified"]))
-    seen = set()
-    for loc, lastmod in entries:
-        if loc in seen:
-            continue
-        seen.add(loc)
-        item = SubElement(root, "url")
-        SubElement(item, "loc").text = loc
-        if lastmod:
-            SubElement(item, "lastmod").text = lastmod
-    ElementTree(root).write(ROOT / "sitemap.xml", encoding="utf-8", xml_declaration=True)
+        path = ROOT / post_url(post)
+        if path.is_file():
+            urls.append(BASE_URL + post_url(post))
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', "", '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for url in dict.fromkeys(urls):
+        lines.extend(["  <url>", f"    <loc>{esc(url)}</loc>", "  </url>"])
+    lines.extend(["</urlset>", ""])
+    (ROOT / "sitemap.xml").write_text("\n".join(lines), encoding="utf-8", newline="\n")
 
 
 def main():
