@@ -104,8 +104,10 @@ def render_post(post, template, by_id):
     return template
 
 
-def render_card(post, index):
-    return f'''      <article class="post-card js-reveal" data-delay="{0.08 + index * 0.1:.2f}">
+def render_card(post, index, delay=None):
+    if delay is None:
+        delay = f"{0.08 + index * 0.1:.2f}"
+    return f'''      <article class="post-card js-reveal" data-delay="{delay}">
         <a class="post-link" href="{esc(post_url(post))}">
           <div class="post-meta"><time datetime="{esc(post['datePublished'])}">{esc(post['datePublished'].replace('-', '.'))}</time><span>{esc(post['category'])}</span></div>
           <h2>{esc(post['title'])}</h2><p>{esc(post['excerpt'])}</p><span class="btn btn-small">続きを読む <span class="read-more-arrow">→</span></span>
@@ -116,7 +118,17 @@ def render_card(post, index):
 def update_blog_index(posts):
     path = ROOT / "blog.html"
     text = path.read_text(encoding="utf-8")
-    cards = "\n".join(render_card(post, index) for index, post in enumerate(posts))
+    existing_delays = {
+        href: delay
+        for delay, href in re.findall(
+            r'<article class="post-card js-reveal" data-delay="([^"]+)">\s*<a class="post-link" href="([^"]+)"',
+            text,
+        )
+    }
+    cards = "\n".join(
+        render_card(post, index, existing_delays.get(post_url(post)))
+        for index, post in enumerate(posts)
+    )
     start_marker = "    <!-- BLOG_POSTS_START -->"
     end_marker = "    <!-- BLOG_POSTS_END -->"
     if start_marker in text and end_marker in text:
@@ -154,12 +166,15 @@ def main():
     previews = [post for post in all_posts if post.get("status") == "draft"]
     by_id = {post["id"]: post for post in all_posts}
     template = TEMPLATE_FILE.read_text(encoding="utf-8")
+    generated_count = 0
     for post in posts + previews:
-        if not post.get("sourceFile"):
-            (ROOT / post_url(post)).write_text(render_post(post, template, by_id), encoding="utf-8", newline="\n")
+        article_path = ROOT / post_url(post)
+        if not post.get("sourceFile") and not article_path.exists():
+            article_path.write_text(render_post(post, template, by_id), encoding="utf-8", newline="\n")
+            generated_count += 1
     update_blog_index(posts)
     update_sitemap(posts)
-    print(f"Generated {sum(not post.get('sourceFile') for post in posts)} article(s) and {len(previews)} draft preview(s); {len(posts)} published article(s) indexed.")
+    print(f"Generated {generated_count} new article page(s); {len(posts)} published article(s) indexed.")
 
 
 if __name__ == "__main__":
