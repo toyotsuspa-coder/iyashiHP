@@ -74,6 +74,8 @@ def main():
             if href.startswith(("http:", "https:", "tel:", "mailto:", "#", "data:")):
                 continue
             target = href.split("#", 1)[0].split("?", 1)[0]
+            if target.startswith("./"):
+                target = target[2:]
             if target and target not in local_targets:
                 errors.append(f"{path.name}: broken local link {href}")
 
