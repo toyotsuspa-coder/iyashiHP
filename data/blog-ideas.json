@@ -96,5 +96,6 @@
   {"ideaId":"local-12","title":"吹田市で足つぼを検討するときの準備","category":"吹田・豊津・癒sis","primaryIntent":"吹田市で足つぼを探したい","targetQuery":"吹田市 足つぼ 準備","differentiation":"癒sisの実メニューへの導線を中心にする","status":"planned"},
   {"ideaId":"local-13","title":"癒sisのアクセスページで確認できる情報","category":"吹田・豊津・癒sis","primaryIntent":"来店前の店舗情報を確認したい","targetQuery":"癒sis アクセス 店舗情報","differentiation":"NAPとアクセスページの整合性を確認","status":"planned"},
   {"ideaId":"local-14","title":"吹田・豊津で自分の休息時間を予約する","category":"吹田・豊津・癒sis","primaryIntent":"地域で休息を予定化したい","targetQuery":"吹田 豊津 休息 予約","differentiation":"予約導線を主題にし健康効果を断定しない","status":"planned"},
-  {"ideaId":"local-15","title":"癒sisのブログを悩み別に読む方法","category":"吹田・豊津・癒sis","primaryIntent":"目的に合う記事を探したい","targetQuery":"癒sis ブログ 悩み別","differentiation":"公開記事のカテゴリと関連記事を案内","status":"planned"}
+  {"ideaId":"local-15","title":"癒sisのブログを悩み別に読む方法","category":"吹田・豊津・癒sis","primaryIntent":"目的に合う記事を探したい","targetQuery":"癒sis ブログ 悩み別","differentiation":"公開記事のカテゴリと関連記事を案内","status":"planned"},
+  {"ideaId":"neck-18","title":"40代女性の朝、首や肩が重い日に見直したいこと","category":"首・肩・頭の疲れ","primaryIntent":"朝に首や肩が重く感じる40代女性が見直し方を知りたい","targetQuery":"40代女性 朝 首 肩 重い","differentiation":"年齢を症状の原因と決めつけず、寝具・寝室環境・起床後の過ごし方を振り返る一般的な工夫と医療機関への相談目安を案内","status":"draft"}
 ]
