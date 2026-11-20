@@ -1,233 +1,193 @@
-癒sis 予約システム実装指示書（VS Code Copilot向け）
+# 癒sis 予約システム実装指示書
 
-目的
-- 既存サイト https://toyotsuspa-coder.github.io/iyashiHP/ に、見やすい専用予約画面を実装する。
-- 予約台帳はSquareを継続利用する。
-- お客さんは癒sisの画面内で「コース → 日付 → 空き時間 → 顧客情報 → 予約確定」と進む。
-- 実際の空き枠はSquare Bookings APIから取得し、予約確定時はSquareにも予約を登録する。
-- SquareのアクセストークンをGitHub PagesやブラウザJavaScriptへ絶対に埋め込まない。
+## VS Code Copilotへの指示
+このファイルを最初から最後まで読んだら、追加の設計確認を求めず、記載内容に従って実装できるところまで一気に実装してください。
 
-現行リポジトリ
-- GitHub: toyotsuspa-coder/iyashiHP
-- 既存トップ: index.html
-- 既存予約ページ: reserve.html
-- 既存CSS: styles.css
-- 既存JS: script.js
-- 公開: GitHub Pages
+既存の index.html / reserve.html / styles.css / script.js も確認し、既存サイトを壊さないでください。
 
-既存店舗情報
-- 店名: ドライヘッドスパ専門店 癒sis
-- 住所: 大阪府吹田市垂水町2丁目1-5 豊津駅前ビル2F
-- 電話: 050-1809-0184
-- 営業時間: 9:00-23:00（実営業設定をSquareと一致させること）
-- Square既存予約URL: https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services
-- LINE: https://lin.ee/oOkH3GL
+実装完了後だけ、以下を簡潔に報告してください。
+1. 作成したファイル
+2. 変更したファイル
+3. Squareでユーザーが手動設定すること
+4. Cloudflareでユーザーが手動設定すること
+5. Sandboxテスト手順
 
-作りたいUI
-STEP 1 コース選択
-1. 初回ドライヘッドスパ 45分 / 4,000円
-   badge: 初めての方におすすめ
-2. ドライヘッドスパ 60分 / 6,200円
-   badge: 定番
-3. 足つぼ＋ドライヘッドスパ 90分 / 8,200円
-   badge: 人気No.1
-※料金・名称はSquare本番Catalogの内容を最終的な正とする。差異があればSquareに合わせる。
+SquareやCloudflareの未取得ID・トークンは絶対に推測しないでください。プレースホルダーのまま実装し、設定場所をSETUP.mdに書いてください。
+Productionには接続せず、まずSandboxまで完成させてください。
 
-STEP 2 日時選択
-- 7日単位で日付を表示。
-- 選択コースに対してSquareの実際の空き枠だけ表示する。
-- 過去日時は表示しない。
-- 空きなしの日は「空きなし」とする。
-- 表示時刻はAsia/Tokyo。
+---
 
-STEP 3 お客様情報
-- 名前: 必須
-- 電話番号: 必須
-- メール: 任意（Square側仕様や確認通知に必要なら必須へ変更可）
-- 選択コース、日時、金額を確認表示。
-- 「この内容で予約する」を押したらSquareに顧客・予約を作成する。
-- 二重送信防止。処理中はボタンdisabled。
-- API成功後のみ予約完了を表示。
-- API失敗時に成功画面を出してはいけない。
+## 目的
+既存サイト https://toyotsuspa-coder.github.io/iyashiHP/ に、癒sis専用予約画面を実装する。
 
-デザイン
-- 背景 #f7f2ec
-- メイン文字 #433b36
-- アクセント #806c5d
-- カードは白、border-radius 16-24px程度
+お客様の操作:
+コース選択 → 日付選択 → Squareの実際の空き時間 → 名前/電話/メール → 予約確定 → Squareカレンダー登録
+
+予約台帳はSquareを継続利用する。
+
+## 必須UI
 - モバイルファースト
-- 上部に3ステップ表示「コース / 日時 / お客様情報」
-- 店舗特徴を必要に応じ「豊津駅徒歩30秒 / 完全個室 / 着替え不要」と表示
-- 現サイトの癒sisブランド感を壊さない。
+- 色: 背景 #f7f2ec / 文字 #433b36 / アクセント #806c5d
+- 上部に「コース / 日時 / お客様情報」の3ステップ
+- 豊津駅徒歩30秒 / 完全個室 / 着替え不要 を自然に表示
 
-システム構成
-[GitHub Pages]
-reserve.html または新しい booking.html
-      ↓ HTTPS fetch
-[Cloudflare Worker]
-iyasis-booking-api
-      ↓ Server-side only
-[Square APIs]
+コース:
+1. 初回ドライヘッドスパ45分 / 4,000円 / 「初めての方におすすめ」
+2. ドライヘッドスパ60分 / 6,200円 / 「定番」
+3. 足つぼ＋ドライヘッドスパ90分 / 8,200円 / 「人気No.1」
+
+※本番ではSquare Catalogの名称・金額を正とする。
+
+日時:
+- 7日単位
+- 過去日時は出さない
+- Square Search Availability APIの実空き枠だけ表示
+- Asia/Tokyo
+- 空きなし表示あり
+- スタッフ指名なし。「空いているスタッフなら誰でも」で開始
+
+顧客情報:
+- 名前 必須
+- 電話 必須
+- メール 任意。ただしSquare仕様上必要なら必須に変更可
+- 選択コース/日時/価格の確認表示
+- 送信中はボタンdisabled
+- Square API成功後だけ完了画面を表示
+- 失敗時は適切なエラー表示
+
+## 構成
+GitHub Pages フロント
+  ↓ HTTPS fetch
+Cloudflare Worker: workers/iyasis-booking-api/
+  ↓ server-side
+Square APIs
+
+Cloudflare Workerに実装:
+- GET /api/services
+- POST /api/availability
+- POST /api/bookings
+
+利用するSquare API:
 - Bookings API
 - Catalog API
 - Locations API
 - Customers API
-- Team API（必要に応じて）
+- Team API（必要な場合）
 
-重要なセキュリティ要件
-- Square Access TokenをHTML、JS、GitHub、コミット履歴へ絶対に保存しない。
-- TokenはCloudflare Workers Secretsで保持する。例: SQUARE_ACCESS_TOKEN
-- .env / .dev.varsを使用する場合は.gitignoreへ追加。
-- CORSは本番では https://toyotsuspa-coder.github.io のみに制限する。
-- ユーザー入力を検証する。
-- booking APIにはレート制限または簡易bot対策を検討する。
-- idempotency_keyを使用し、多重予約登録を防ぐ。
+まず無料プランで利用できるbuyer-level Bookings APIを優先し、seller-level前提にはしない。
 
-Cloudflare Workerに必要なエンドポイント
+## /api/services
+Square Catalogの予約可能Service Variationとフロント表示用serviceKeyを対応させる。
+秘密情報は返さない。
 
-1. GET /api/config または GET /api/services
-目的:
-- フロントに表示する予約可能サービス情報を返す。
-- Square Catalog APIの予約対象Service Variationと紐付ける。
+例:
+{"services":[{"key":"trial45","name":"初回ドライヘッドスパ 45分","price":4000,"duration":45,"serviceVariationId":"..."}]}
 
-返却例:
-{
-  "services": [
-    {
-      "key": "trial45",
-      "name": "初回ドライヘッドスパ 45分",
-      "price": 4000,
-      "duration": 45,
-      "serviceVariationId": "..."
-    }
-  ]
-}
-※秘密情報は返さない。
+## /api/availability
+request:
+{"serviceKey":"trial45","date":"2026-11-21"}
 
-2. POST /api/availability
-request例:
-{
-  "serviceKey": "trial45",
-  "date": "2026-11-21"
-}
+処理:
+1. serviceKeyをサーバ側のservice_variation_idへ変換
+2. Square POST /v2/bookings/availability/search
+3. location_idとservice_variation_idを利用
+4. 必要ならteam_member_idを利用
+5. Asia/Tokyoの日付範囲で検索
+6. 必要な空き枠データだけ返却
 
-Worker処理:
-- serviceKeyをサーバ側のservice_variation_idへ変換。
-- Square POST /v2/bookings/availability/search を呼ぶ。
-- location_id、service_variation_id、必要ならteam_member_idを指定。
-- Asia/Tokyoの対象日で検索する。
-- フロントには必要な startAt / teamMemberId / serviceVariationId 等だけ返す。
+例:
+{"slots":[{"startAt":"2026-11-21T10:00:00+09:00","label":"10:00","teamMemberId":"..."}]}
 
-response例:
-{
-  "slots": [
-    {"startAt":"2026-11-21T10:00:00+09:00","label":"10:00","teamMemberId":"..."},
-    {"startAt":"2026-11-21T11:30:00+09:00","label":"11:30","teamMemberId":"..."}
-  ]
-}
+## /api/bookings
+request:
+{"serviceKey":"trial45","startAt":"2026-11-21T10:00:00+09:00","teamMemberId":"...","name":"...","phone":"...","email":"..."}
 
-3. POST /api/bookings
-request例:
-{
-  "serviceKey":"trial45",
-  "startAt":"2026-11-21T10:00:00+09:00",
-  "teamMemberId":"...",
-  "name":"西 息吹",
-  "phone":"09012345678",
-  "email":"example@example.com"
-}
+処理:
+1. 入力検証
+2. 予約直前にSquare空き枠を再確認
+3. Customers APIで顧客検索または作成
+4. Bookings APIで予約作成
+5. idempotency_keyで二重送信防止
+6. API成功時だけok:trueを返す
 
-Worker処理:
-A. 入力検証
-B. 空き枠をSquareでもう一度確認（TOCTOU対策）
-C. Customers APIで既存顧客検索または新規顧客作成
-D. Square Bookings API create booking
-E. idempotency_keyを指定
-F. 成功時だけbooking idと表示用情報を返す
+エラー:
+- 枠が埋まった: 409
+- 入力不備: 400
+- Square/Worker障害: 500または502
 
-response例:
-{
-  "ok":true,
-  "bookingId":"...",
-  "startAt":"..."
-}
+## セキュリティ絶対条件
+- Square Access TokenをHTML/JS/GitHub/コミット履歴へ絶対に保存しない
+- Cloudflare Worker Secret SQUARE_ACCESS_TOKENからのみ取得
+- .env/.dev.varsは.gitignore
+- Production CORSは https://toyotsuspa-coder.github.io のみに制限
+- 入力検証
+- idempotency key
+- 必要に応じて簡易レート制限/bot対策
+- 個人情報をGA4へ送らない
 
-エラー時:
-- 409: 直前に枠が埋まった → 「この時間は予約済みになりました。別の時間をお選びください」
-- 400: 入力不備
-- 500/502: Square側またはWorker側エラー → 「予約を確定できませんでした。時間をおいて再度お試しください」
-
-Square側で確認・取得するID
+## 未設定値
+以下は捏造しない:
 - LOCATION_ID
-- 各コースの service_variation_id
-- 必要なスタッフの team_member_id
+- service_variation_id
+- team_member_id
+- Sandbox Access Token
+- Production Access Token
 - Square API version
-- Sandbox Access Token（最初）
-- Production Access Token（本番移行時）
 
-開発手順
-Phase 1: Square Sandbox
-1. Square Developer Consoleで IyasisBooking アプリを作成。
-2. SandboxでLocation、サービス、スタッフを準備。
-3. Cloudflare Workerを作成。
-4. SQUARE_ACCESS_TOKENをWorker Secretへ登録。
-5. /api/availabilityを実装して、本当にSquareのSandbox空き枠を返す。
-6. /api/bookingsを実装してSandbox予約を作成。
-7. 癒sis予約画面からWorkerへ接続。
-8. 空き枠選択→顧客入力→予約→Squareカレンダー反映を確認。
+コード内は明確なプレースホルダーまたはWorker Secret/環境変数参照にする。
+SETUP.mdに取得場所と設定手順を書く。
 
-Phase 2: Production
-1. ProductionのLocation ID / service variation IDs / team member IDsを取得。
-2. Production tokenをWorker Secretへ安全に設定。
-3. CORSをGitHub Pages本番originのみにする。
-4. テスト用の実予約を営業時間内の安全な枠で1件だけ作成し、すぐ確認・必要に応じキャンセル。
-5. reserve.htmlへの導線を新画面へ切替。
-6. Google Business Profileの予約URLも必要に応じ新予約画面へ変更。
+## Sandbox実装
+1. Square Sandbox前提でWorker実装
+2. /api/services
+3. /api/availability
+4. /api/bookings
+5. フロントから接続
+6. Square Sandboxの実空き枠が表示される
+7. テスト予約がSandbox Squareカレンダーへ作成される
 
-GA4計測
-既存測定ID: G-FC0KSLFKNN
-最低限以下を計測する。
-- booking_course_select: コース選択
-- booking_date_select: 日付選択
-- booking_time_select: 時刻選択
-- booking_form_start: 顧客情報画面表示
-- booking_submit: 予約ボタン押下
-- booking_complete: Square予約成功
-- booking_error: 予約失敗
+Productionへの切替は今回実施しない。
 
-コンバージョン漏れを防ぐため、booking_completeはSquare API成功後のみ発火する。
-個人情報（名前、電話、メール）をGA4へ送信しない。
+## GA4
+既存ID: G-FC0KSLFKNN
+以下を計測:
+- booking_course_select
+- booking_date_select
+- booking_time_select
+- booking_form_start
+- booking_submit
+- booking_complete
+- booking_error
 
-プロトタイプから本番へ変更する箇所
-- mockAvailability() を削除。
-- 固定TIMESを削除。
-- /api/availability の結果で時間ボタンを描画。
-- confirmBooking() の待機デモを削除。
-- /api/bookingsを呼ぶ。
-- APIエラー表示を追加。
-- loading stateを空き枠取得にも追加。
-- dateOffsetが変わったときselectedDateが古い配列を参照しないよう状態管理を修正。
-- dateKey()でtoISOString()を直接利用するとJST日付がUTCずれする場合があるため、Asia/Tokyo基準でYYYY-MM-DDを作る。
+booking_completeはSquare予約成功後のみ。
+名前/電話/メール等をGA4に送らない。
 
-実装上の判断
-- 最初はスタッフ指名なしで「空いているスタッフなら誰でも」でよい。
-- Square Search Availabilityで返ったteamMemberIdをそのまま予約作成に使用する。
-- スタッフ指名機能は後から追加する。
-- 決済は初期フェーズでは現行運用を維持。予約APIとオンライン決済を同時に作り替えない。
-- キャンセル・変更は初版では既存Square導線または電話/LINEへ案内し、予約作成を先に安定させる。
+## 技術上の注意
+- mockAvailabilityや固定TIMESは最終実装では使わない
+- JST日付をtoISOString()だけで作ってUTC日付ずれを起こさない
+- API空き枠取得中にもloading表示
+- dateOffset変更時のselectedDate整合性を保つ
+- キャンセル/変更機能は初版では作らない。既存Square/電話/LINEへ案内
+- 決済機能は今回作り替えない
+- 既存サイトの他ページを壊さない
 
-受け入れ条件
-- スマホで3タップ程度で日時選択まで進める。
-- Squareに存在しない空き枠を表示しない。
-- 同じ枠への通常の二重予約を防ぐ。
-- 予約成功した場合だけ完了画面を表示。
-- Squareカレンダー側に予約が反映される。
-- Access TokenがGitHubのソースやDevTools Network responseに露出しない。
-- モバイルで入力しやすい。
-- 既存index.html、menu.html、access.html等を壊さない。
+## 既存情報
+Repository: toyotsuspa-coder/iyashiHP
+Site: https://toyotsuspa-coder.github.io/iyashiHP/
+Square既存予約URL: https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services
+LINE: https://lin.ee/oOkH3GL
+電話: 050-1809-0184
+住所: 大阪府吹田市垂水町2丁目1-5 豊津駅前ビル2F
+営業時間: 9:00-23:00（Square実設定と一致させる）
 
-VS Code Copilotへの最初の依頼文
-「このリポジトリの既存コードとこの実装指示書を読んでください。まず変更はせず、現在のreserve.html、styles.css、script.js、index.htmlの予約導線を確認してください。そのうえで、上記仕様を実装するために追加・変更するファイル一覧と具体的な手順を提示してください。Square Access TokenをフロントエンドやGitHubへ保存する実装は禁止です。既存サイトのデザインを維持し、まずSandboxで動作させます。」
+## 受け入れ条件
+- スマホでコース→日時を簡単に選択可能
+- Squareに存在しない空き枠を表示しない
+- 二重送信/通常の二重予約を防ぐ
+- Square成功後だけ完了表示
+- SquareカレンダーへSandbox予約が反映
+- Access Tokenがフロント/DevTools response/GitHubに露出しない
+- 既存サイトを壊さない
+- SETUP.mdを作り、ユーザーが最後に行う設定をコピペ可能な手順にする
 
-次の依頼（設計確認後）
-「ではPhase 1だけ実装してください。Cloudflare Worker側とフロント側を分離してください。最初はSandboxのみです。必要なSquare IDが未設定の場合はプレースホルダーと設定場所を明示し、値を捏造しないでください。既存サイトを壊さないよう、新規ファイル中心で実装し、変更ファイルを最後に一覧表示してください。」
+以上を読んだら、追加確認で止まらずSandbox実装まで進めてください。
