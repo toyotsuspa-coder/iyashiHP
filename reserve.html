@@ -81,6 +81,94 @@
 
 <section>
   <div class="wrap">
+    <div class="booking-shell js-reveal" id="booking" data-delay="0.08">
+      <div class="booking-heading">
+        <p class="kicker">ONLINE BOOKING</p>
+        <h2 class="title">オンラインで予約する</h2>
+        <p>豊津駅徒歩30秒・完全個室・着替え不要</p>
+      </div>
+
+      <ol class="booking-steps" aria-label="予約ステップ">
+        <li class="is-active" data-step-indicator="1"><span>1</span><strong>コース</strong></li>
+        <li data-step-indicator="2"><span>2</span><strong>日時</strong></li>
+        <li data-step-indicator="3"><span>3</span><strong>お客様情報</strong></li>
+      </ol>
+
+      <div class="booking-alert" id="bookingAlert" role="alert" hidden></div>
+
+      <div class="booking-panel" data-booking-panel="1">
+        <h3>コースを選ぶ</h3>
+        <div class="booking-courses" id="courseList" aria-live="polite">
+          <p class="booking-loading">コースを読み込みています...</p>
+        </div>
+        <div class="booking-fallback" id="bookingFallback" hidden>
+          <p>このコースを選択しました。Squareの予約画面で空き日時をご確認ください。</p>
+          <a class="btn solid" href="#" target="_blank" rel="noopener noreferrer">Squareで日時を選ぶ</a>
+        </div>
+        <div class="booking-actions">
+          <button class="btn booking-next" type="button" data-next="2" disabled>日時を選ぶ</button>
+        </div>
+      </div>
+
+      <div class="booking-panel" data-booking-panel="2" hidden>
+        <div class="booking-date-heading">
+          <h3>日時を選ぶ</h3>
+          <div class="booking-week-nav">
+            <button type="button" id="previousWeek" aria-label="前の7日間">前へ</button>
+            <span id="weekLabel"></span>
+            <button type="button" id="nextWeek" aria-label="次の7日間">次へ</button>
+          </div>
+        </div>
+        <div class="booking-dates" id="dateList" aria-label="予約日"></div>
+        <div class="booking-time-section">
+          <p class="booking-time-label">空いている時間</p>
+          <div class="booking-times" id="timeList" aria-live="polite" aria-busy="false">
+            <p class="booking-empty">日付を選んでください。</p>
+          </div>
+        </div>
+        <div class="booking-actions booking-actions-between">
+          <button class="btn booking-back" type="button" data-back="1">コースに戻る</button>
+          <button class="btn booking-next" type="button" data-next="3" disabled>お客様情報へ</button>
+        </div>
+      </div>
+
+      <div class="booking-panel" data-booking-panel="3" hidden>
+        <h3>お客様情報</h3>
+        <div class="booking-summary" id="bookingSummary"></div>
+        <form id="bookingForm" novalidate>
+          <div class="booking-form-grid">
+            <label>
+              お名前 <span aria-hidden="true">*</span>
+              <input type="text" name="name" autocomplete="name" maxlength="100" required>
+            </label>
+            <label>
+              電話番号 <span aria-hidden="true">*</span>
+              <input type="tel" name="phone" autocomplete="tel" maxlength="30" inputmode="tel" required>
+            </label>
+            <label class="booking-email">
+              メールアドレス（任意）
+              <input type="email" name="email" autocomplete="email" maxlength="254">
+            </label>
+          </div>
+          <p class="booking-privacy">ご入力いただく情報は予約登録のためにのみ使用します。</p>
+          <div class="booking-actions booking-actions-between">
+            <button class="btn booking-back" type="button" data-back="2">日時に戻る</button>
+            <button class="btn solid booking-submit" type="submit">予約を確定する</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="booking-panel booking-success" data-booking-panel="complete" hidden>
+        <div class="booking-success-mark" aria-hidden="true">✓</div>
+        <h3>ご予約が完了しました</h3>
+        <p id="successMessage"></p>
+        <div class="booking-success-actions">
+          <a class="btn solid" href="index.html">トップへ戻る</a>
+          <a class="btn" href="https://lin.ee/oOkH3GL" target="_blank" rel="noopener noreferrer">LINEで確認する</a>
+        </div>
+      </div>
+    </div>
+
     <div class="reserve-methods">
       <div class="reserve-card js-reveal" data-delay="0.08">
         <h3>お電話でのご予約</h3>
@@ -90,7 +178,7 @@
       <div class="reserve-card js-reveal" data-delay="0.16">
         <h3>Web予約</h3>
         <p>24時間いつでもご予約いただけます。</p>
-        <a class="btn solid" href="https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services">Web予約はこちら</a>
+        <a class="btn solid" href="#booking">このページで予約する</a>
       </div>
       <div class="reserve-card js-reveal" data-delay="0.24">
         <h3>ご相談・ご質問</h3>
@@ -146,5 +234,6 @@
   <a href="https://rakuraku-massagenabi.com/" target="_blank" rel="noopener noreferrer">全国マッサージ検索サイト・ラクマップ</a>
 </div>
   <script src="script.js" defer></script>
+  <script src="booking.js" defer></script>
 </body>
 </html>

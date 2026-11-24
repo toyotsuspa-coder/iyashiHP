@@ -1,0 +1,10 @@
+name = "iyasis-booking-api"
+main = "src/index.js"
+compatibility_date = "2026-11-24"
+
+[vars]
+ALLOWED_ORIGIN = "https://toyotsuspa-coder.github.io"
+LOCATION_ID = "LG53TFRM3KHG9"
+FOOT80_VARIATION_ID = "KNRVRECUKLIACVTRGYYYDC4X"
+SQUARE_API_VERSION = "YOUR_SQUARE_API_VERSION"
+SQUARE_API_BASE_URL = "https://connect.squareup.com"

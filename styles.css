@@ -365,6 +365,130 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
 }
 
 /* ---- reserve page ---- */
+.booking-shell{
+  margin-top:48px;
+  padding:34px;
+  background:#faf7f2;
+  color:#2d2620;
+  border:1px solid #e6ddd0;
+  box-shadow:0 18px 50px rgba(20,27,46,.18);
+}
+.booking-heading{text-align:center;margin-bottom:26px;}
+.booking-heading .kicker{color:#a67c44;font-size:.78rem;letter-spacing:.18em;}
+.booking-heading .title{color:#2d2620;font-size:clamp(1.55rem,5vw,2.15rem);margin:6px 0 4px;}
+.booking-heading>p:last-child{color:#6e6257;font-size:.88rem;}
+.booking-steps{
+  list-style:none;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin:0 0 28px;
+  padding:0;
+  border-bottom:1px solid #e6ddd0;
+}
+.booking-steps li{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  min-height:58px;
+  color:#6e6257;
+  border-bottom:3px solid transparent;
+  transform:none;
+  opacity:1;
+  transition:none;
+}
+.booking-steps li span{
+  width:28px;height:28px;border-radius:50%;
+  display:grid;place-items:center;
+  border:1px solid currentColor;
+  font-size:.8rem;
+}
+.booking-steps li strong{font-size:.86rem;}
+.booking-steps li.is-active{color:#85602f;border-bottom-color:#a67c44;}
+.booking-steps li.is-active span{background:#a67c44;color:#fff;}
+.booking-steps li.is-complete{color:#85602f;}
+.booking-panel h3{color:#2d2620;font-size:1.15rem;margin-bottom:18px;}
+.booking-courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px;}
+.booking-course{
+  position:relative;
+  cursor:pointer;
+  border:1px solid #e6ddd0;
+  background:#fff;
+  min-width:0;
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
+}
+.booking-course input{position:absolute;width:1px;height:1px;opacity:0;}
+.booking-course-body{display:flex;flex-direction:column;min-height:162px;padding:17px;}
+.booking-course:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(45,38,32,.1);}
+.booking-course.is-selected{border:2px solid #a67c44;background:#fbf6ee;box-shadow:0 0 0 2px rgba(166,124,68,.16),0 12px 25px rgba(45,38,32,.08);}
+.booking-course:focus-within{outline:2px solid #a67c44;outline-offset:3px;}
+.booking-course-featured .booking-course-badge{background:#a67c44;color:#fff;}
+.booking-course-badge{align-self:flex-start;min-height:28px;padding:4px 10px;background:#f3ede2;color:#85602f;font-size:.72rem;line-height:1.4;letter-spacing:.02em;}
+.booking-course-name{font-family:'Shippori Mincho',serif;font-size:1rem;line-height:1.55;color:#2d2620;margin:10px 0;}
+.booking-course-meta{margin-top:auto;display:flex;align-items:baseline;justify-content:space-between;gap:8px;color:#6e6257;font-size:.78rem;}
+.booking-course-meta strong{font-size:1.15rem;color:#85602f;}
+.booking-course-description{margin-top:8px;color:#6e6257;font-size:.8rem;line-height:1.6;}
+.booking-actions{display:flex;justify-content:flex-end;margin-top:22px;}
+.booking-actions-between{justify-content:space-between;}
+.booking-next,.booking-submit{border:0;cursor:pointer;}
+.booking-next:disabled,.booking-submit:disabled{opacity:.48;cursor:not-allowed;}
+.booking-back{background:transparent;color:#85602f;border:1px solid #cbb99f;cursor:pointer;}
+.booking-alert{
+  margin:0 0 18px;
+  padding:12px 14px;
+  border-left:3px solid #a67c44;
+  background:#f3ede2;
+  color:#2d2620;
+  font-size:.86rem;
+}
+.booking-date-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px;}
+.booking-week-nav{display:flex;align-items:center;gap:8px;font-size:.78rem;color:#85602f;}
+.booking-week-nav button{min-width:44px;min-height:44px;border:1px solid #e6ddd0;background:#fff;color:#2d2620;cursor:pointer;padding:8px;}
+.booking-week-nav button:disabled{opacity:.35;cursor:default;}
+.booking-dates{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;}
+.booking-date{
+  min-height:76px;border:1px solid #e6ddd0;
+  background:#fff;color:#2d2620;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+}
+.booking-date span{font-size:.72rem;color:#85602f;}
+.booking-date strong{font-size:1rem;}
+.booking-date.is-selected{background:#a67c44;color:#fff;border-color:#a67c44;box-shadow:0 0 0 2px rgba(166,124,68,.18);}
+.booking-date.is-selected span{color:#fff;}
+.booking-time-section{margin-top:24px;}
+.booking-time-label{font-size:.82rem;color:#85602f;margin-bottom:10px;}
+.booking-times{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;}
+.booking-time{min-height:48px;border:1px solid #e6ddd0;background:#fff;color:#2d2620;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease;}
+.booking-time:hover{border-color:#a67c44;transform:translateY(-1px);}
+.booking-time.is-selected{background:#a67c44;color:#fff;border-color:#a67c44;box-shadow:0 0 0 2px rgba(166,124,68,.18);}
+.booking-shell button:focus-visible,.booking-success-actions a:focus-visible,.booking-fallback a:focus-visible{outline:3px solid #a67c44;outline-offset:3px;}
+.booking-loading,.booking-empty{grid-column:1/-1;color:#6e6257;font-size:.9rem;text-align:center;padding:22px 8px;}
+.booking-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.booking-form-grid label{display:flex;flex-direction:column;gap:7px;font-size:.82rem;color:#85602f;}
+.booking-form-grid input{
+  width:100%;height:50px;border:1px solid #d6c9b8;
+  background:#fff;color:#2d2620;padding:0 12px;font-size:1rem;border-radius:8px;
+}
+.booking-form-grid input:focus{outline:2px solid #a67c44;border-color:#a67c44;}
+.booking-email{grid-column:1/-1;}
+.booking-privacy{margin-top:12px;font-size:.76rem;color:#6e6257;}
+.booking-summary{background:#f3ede2;color:#2d2620;border:1px solid #e6ddd0;padding:14px 16px;margin-bottom:18px;border-radius:12px;}
+.booking-summary dl{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.booking-summary dt{font-size:.72rem;color:#85602f;}
+.booking-summary dd{font-size:.86rem;color:#2d2620;}
+.booking-success{text-align:center;padding:26px 12px 12px;}
+.booking-success-mark{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;margin:0 auto 16px;background:#a67c44;color:#fff;font-size:1.6rem;}
+.booking-success p{color:#6e6257;margin:10px 0 20px;}
+.booking-success-actions{display:flex;justify-content:center;gap:10px;}
+.booking-success-actions .btn{cursor:pointer;}
+.booking-shell .booking-actions .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;}
+.booking-shell .btn{border-radius:10px;}
+.booking-shell .btn:not(.solid){color:#85602f;border-color:#a67c44;}
+.booking-shell .btn.solid{background:#a67c44;color:#fff;border-color:#a67c44;}
+.booking-shell .btn.solid:hover{background:#85602f;color:#fff;border-color:#85602f;}
+.booking-fallback{margin-top:18px;padding:16px;background:#f3ede2;border:1px solid #e6ddd0;border-radius:12px;text-align:center;}
+.booking-fallback p{margin:0 0 12px;color:#6e6257;font-size:.88rem;}
+.booking-fallback .btn{min-height:48px;display:inline-flex;align-items:center;justify-content:center;}
+.booking-shell [hidden]{display:none!important;}
+
 .reserve-methods{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
 .reserve-card{border:1px solid var(--line);padding:32px 26px;}
 .reserve-card h3{font-size:1.05rem;margin-bottom:12px;}
@@ -372,6 +496,25 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
 .reserve-card .reserve-note{margin:14px 0 0;font-size:.82rem;color:var(--gold-soft);}
 @media(max-width:900px){.reserve-methods{grid-template-columns:1fr 1fr;}}
 @media(max-width:700px){.reserve-methods{grid-template-columns:1fr;}}
+@media(max-width:700px){
+  .booking-shell{margin-top:32px;padding:22px 14px;}
+  .booking-steps li{flex-direction:column;gap:2px;min-height:66px;}
+  .booking-steps li strong{font-size:.72rem;}
+  .booking-courses{grid-template-columns:1fr;}
+  .booking-course-body{min-height:112px;}
+  .booking-date-heading{align-items:flex-start;flex-direction:column;}
+  .booking-week-nav{width:100%;justify-content:space-between;}
+  .booking-dates{gap:4px;}
+  .booking-date{min-height:64px;}
+  .booking-time{min-height:48px;}
+  .booking-times{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .booking-form-grid{grid-template-columns:1fr;}
+  .booking-email{grid-column:auto;}
+  .booking-summary dl{grid-template-columns:1fr;}
+  .booking-actions-between{gap:8px;}
+  .booking-actions-between .btn{font-size:.78rem;padding:10px 12px;}
+  .booking-success-actions{flex-direction:column;}
+}
 
 .notes{margin-top:56px;}
 .notes ul{margin-top:20px;padding-left:1.2em;}
