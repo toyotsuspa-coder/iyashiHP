@@ -10,10 +10,37 @@
     name: '【新規★人気No.1】足むくみ◇足つぼ20分+ヘッド60分（80分）',
     price: 8200,
     duration: 80,
-    bookingDurationLabel: '1時間50分（施術80分）',
+    bookingDurationLabel: '1時間20分（施術80分）',
     description: '足つぼ20分とドライヘッドスパ60分のセットコースです。',
     badge: '人気No.1'
   };
+  var SQUARE_EXTERNAL_COURSES = [
+    {
+      name: '【新規★お試し体験】頭重感・眼精疲労◇寝落ちヘッドスパ（45分）',
+      price: 4000,
+      bookingDurationLabel: '1時間',
+      description: '空いた時間やお仕事終わりに。極上の「寝落ち」体験をしてみませんか？',
+      badge: '新規お試し',
+      bookingUrl: SQUARE_ALL_BOOKING_URL
+    },
+    {
+      name: '【新規】自律神経の乱れ・不眠に◇寝落ちヘッドスパ（60分）',
+      price: 6200,
+      bookingDurationLabel: '1時間20分',
+      description: '慢性的な疲れ/頭痛/不眠を解消したい方に！◆極上の「寝落ち」体験で脳疲労リセット◆施術後は視界も頭も驚くほどスッキリ頑張るあなたに、至福の60分を。',
+      badge: '新規限定',
+      bookingUrl: 'https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services/OIMXEKZPBTTACAHOMF6AVM2T'
+    },
+    {
+      name: '足湯+足つぼ（20分）',
+      price: 2000,
+      bookingDurationLabel: '20分',
+      description: '足から身体を温め、全身の巡りを整えます。ヘッドスパとあわせることで、深くほぐれるような体験がお楽しみいただけます。※単品利用不可。メインメニューと組み合わせて選択してください。',
+      badge: 'オプション',
+      bookingCta: 'メインメニューと一緒にSquareで選択する',
+      bookingUrl: 'https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services/XF34TW3CBUIIR5LDK3CEHWWV'
+    }
+  ];
 
   var state = {
     step: 1,
@@ -83,6 +110,19 @@
           ? '<a class="btn solid booking-course-square-link" href="' + SQUARE_BOOKING_URL +
             '" target="_blank" rel="noopener noreferrer">このコースで日時を選択する</a>'
           : '') +
+        '</div>';
+    }).join('') + SQUARE_EXTERNAL_COURSES.map(function (course) {
+      return '<div class="booking-course booking-course-featured booking-course-external">' +
+        '<div class="booking-course-body">' +
+        '<span class="booking-course-badge">' + escapeHtml(course.badge) + '</span>' +
+        '<span class="booking-course-name">' + escapeHtml(course.name) + '</span>' +
+        '<span class="booking-course-meta"><strong>' + formatPrice(course.price) + '</strong><span>' +
+        escapeHtml(course.bookingDurationLabel) + '</span></span>' +
+        '<span class="booking-course-description">' + escapeHtml(course.description) + '</span>' +
+        '</div>' +
+        '<a class="btn solid booking-course-square-link" href="' + course.bookingUrl +
+        '" target="_blank" rel="noopener noreferrer">' +
+        escapeHtml(course.bookingCta || 'このコースをSquareで予約する') + '</a>' +
         '</div>';
     }).join('');
 
