@@ -122,7 +122,7 @@
         '</div>' +
         '<a class="btn solid booking-course-square-link" href="' + course.bookingUrl +
         '" target="_blank" rel="noopener noreferrer">' +
-        escapeHtml(course.bookingCta || 'このコースをSquareで予約する') + '</a>' +
+        escapeHtml(course.bookingCta || 'このコースで日時を選択する') + '</a>' +
         '</div>';
     }).join('');
 
