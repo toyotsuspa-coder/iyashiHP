@@ -4,6 +4,7 @@
   // Set this to the deployed Cloudflare Worker URL; never put Square credentials here.
   var API_BASE = 'https://YOUR-WORKER-SUBDOMAIN.workers.dev';
   var SQUARE_BOOKING_URL = 'https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services/KNRVRECUKLIACVTRGYYYDC4X';
+  var SQUARE_ALL_BOOKING_URL = 'https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services';
   var FALLBACK_COURSE = {
     key: 'foot80',
     name: '【新規★人気No.1】足むくみ◇足つぼ20分+ヘッド60分（80分）',
@@ -21,6 +22,7 @@
     selectedDate: null,
     selectedSlot: null,
     dateOffset: 0,
+    squareFallback: false,
     submitting: false,
     availabilityRequest: 0
   };
@@ -66,17 +68,22 @@
       var duration = course.bookingDurationLabel || Number(course.duration) + '分';
       var description = course.description ||
         (course.key === 'foot80' ? FALLBACK_COURSE.description : '');
-      return '<label class="booking-course booking-course-featured' + (selected ? ' is-selected' : '') + '">' +
-        '<input type="radio" name="course" value="' + escapeHtml(course.key) + '"' +
+      var inputId = 'booking-course-' + escapeHtml(course.key);
+      return '<div class="booking-course booking-course-featured' + (selected ? ' is-selected' : '') + '">' +
+        '<input id="' + inputId + '" type="radio" name="course" value="' + escapeHtml(course.key) + '"' +
         (selected ? ' checked' : '') + '>' +
-        '<span class="booking-course-body">' +
+        '<label class="booking-course-body" for="' + inputId + '">' +
         '<span class="booking-course-badge">' + escapeHtml(badge) + '</span>' +
         '<span class="booking-course-name">' + escapeHtml(course.name) + '</span>' +
         '<span class="booking-course-meta"><strong>' + formatPrice(course.price) + '</strong><span>' +
         escapeHtml(duration) + '</span></span>' +
         (description ? '<span class="booking-course-description">' + escapeHtml(description) + '</span>' : '') +
-        '</span>' +
-        '</label>';
+        '</label>' +
+        (state.squareFallback && course.key === 'foot80'
+          ? '<a class="btn solid booking-course-square-link" href="' + SQUARE_BOOKING_URL +
+            '" target="_blank" rel="noopener noreferrer">このコースで日時を選択する</a>'
+          : '') +
+        '</div>';
     }).join('');
 
     courseList.querySelectorAll('input[name="course"]').forEach(function (input) {
@@ -92,19 +99,28 @@
         track('booking_course_select');
       });
     });
+
+    courseList.querySelectorAll('.booking-course-square-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        track('booking_course_select');
+        track('booking_submit');
+      }, { once: true });
+    });
   }
 
   function showSquareFallback(message) {
     state.courses = [FALLBACK_COURSE];
     state.selectedCourse = FALLBACK_COURSE;
+    state.squareFallback = true;
     renderCourses();
     fallbackPanel.hidden = false;
     courseActions.hidden = true;
-    fallbackPanel.querySelector('a').href = SQUARE_BOOKING_URL;
-    fallbackPanel.querySelector('a').addEventListener('click', function () {
+    var squareAllLink = fallbackPanel.querySelector('a');
+    squareAllLink.href = SQUARE_ALL_BOOKING_URL;
+    squareAllLink.addEventListener('click', function () {
       track('booking_course_select');
       track('booking_submit');
-    }, { once: true });
+    });
     if (message) showAlert(message);
   }
 
@@ -174,7 +190,7 @@
 
   async function loadCourses() {
     if (!isConfigured()) {
-      showSquareFallback('自社予約APIは未設定のため、Squareの予約画面へご案内します。');
+      showSquareFallback();
       return;
     }
     try {
@@ -183,16 +199,17 @@
         return course.key === 'foot80';
       });
       if (!state.courses.length) {
-        showSquareFallback('自社予約APIでコースを取得できないため、Squareの予約画面へご案内します。');
+        showSquareFallback('コースを取得できませんでした。Square予約をご利用ください。');
         return;
       }
+      state.squareFallback = false;
       state.selectedCourse = null;
       renderCourses();
       fallbackPanel.hidden = true;
       courseActions.hidden = false;
       nextCourseButton.disabled = true;
     } catch (error) {
-      showSquareFallback('自社予約APIに接続できません。Squareの予約画面へご案内します。');
+      showSquareFallback('コースを読み込めませんでした。Square予約をご利用ください。');
     }
   }
 
