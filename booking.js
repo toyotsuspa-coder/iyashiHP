@@ -37,7 +37,7 @@
       bookingDurationLabel: '20分',
       description: '足から身体を温め、全身の巡りを整えます。ヘッドスパとあわせることで、深くほぐれるような体験がお楽しみいただけます。※単品利用不可。メインメニューと組み合わせて選択してください。',
       badge: 'オプション',
-      bookingCta: 'メインメニューと一緒にSquareで選択する',
+      bookingCta: 'メインメニューと一緒に選択する',
       bookingUrl: 'https://book.squareup.com/appointments/qrmx4sel5mvql1/location/LG53TFRM3KHG9/services/XF34TW3CBUIIR5LDK3CEHWWV'
     }
   ];
