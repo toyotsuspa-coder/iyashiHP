@@ -102,9 +102,9 @@
         '<label class="booking-course-body" for="' + inputId + '">' +
         '<span class="booking-course-badge">' + escapeHtml(badge) + '</span>' +
         '<span class="booking-course-name">' + escapeHtml(course.name) + '</span>' +
+        (description ? '<span class="booking-course-description">' + escapeHtml(description) + '</span>' : '') +
         '<span class="booking-course-meta"><strong>' + formatPrice(course.price) + '</strong><span>' +
         escapeHtml(duration) + '</span></span>' +
-        (description ? '<span class="booking-course-description">' + escapeHtml(description) + '</span>' : '') +
         '</label>' +
         (state.squareFallback && course.key === 'foot80'
           ? '<a class="btn solid booking-course-square-link" href="' + SQUARE_BOOKING_URL +
@@ -116,9 +116,9 @@
         '<div class="booking-course-body">' +
         '<span class="booking-course-badge">' + escapeHtml(course.badge) + '</span>' +
         '<span class="booking-course-name">' + escapeHtml(course.name) + '</span>' +
+        '<span class="booking-course-description">' + escapeHtml(course.description) + '</span>' +
         '<span class="booking-course-meta"><strong>' + formatPrice(course.price) + '</strong><span>' +
         escapeHtml(course.bookingDurationLabel) + '</span></span>' +
-        '<span class="booking-course-description">' + escapeHtml(course.description) + '</span>' +
         '</div>' +
         '<a class="btn solid booking-course-square-link" href="' + course.bookingUrl +
         '" target="_blank" rel="noopener noreferrer">' +

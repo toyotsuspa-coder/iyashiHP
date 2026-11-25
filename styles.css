@@ -417,17 +417,17 @@ h2.title{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:20px;}
   transition:border-color .2s ease,box-shadow .2s ease,transform .2s ease;
 }
 .booking-course input{position:absolute;width:1px;height:1px;opacity:0;}
-.booking-course-body{display:flex;flex-direction:column;min-height:162px;padding:17px;cursor:pointer;}
+.booking-course-body{display:flex;flex:1 1 auto;flex-direction:column;min-height:162px;padding:17px;cursor:pointer;}
 .booking-course:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(45,38,32,.1);}
 .booking-course.is-selected{border:2px solid #a67c44;background:#fbf6ee;box-shadow:0 0 0 2px rgba(166,124,68,.16),0 12px 25px rgba(45,38,32,.08);}
 .booking-course:focus-within{outline:2px solid #a67c44;outline-offset:3px;}
 .booking-course-featured .booking-course-badge{background:#a67c44;color:#fff;}
 .booking-course-badge{align-self:flex-start;min-height:28px;padding:4px 10px;background:#f3ede2;color:#85602f;font-size:.72rem;line-height:1.4;letter-spacing:.02em;}
-.booking-course-name{font-family:'Shippori Mincho',serif;font-size:1rem;line-height:1.55;color:#2d2620;margin:10px 0;}
+.booking-course-name{font-family:'Shippori Mincho',serif;font-size:1rem;line-height:1.55;color:#2d2620;min-height:4.65em;margin:10px 0;}
 .booking-course-meta{margin-top:auto;display:flex;align-items:baseline;justify-content:space-between;gap:8px;color:#6e6257;font-size:.78rem;}
 .booking-course-meta strong{font-size:1.15rem;color:#85602f;}
 .booking-course-description{margin-top:8px;color:#6e6257;font-size:.8rem;line-height:1.6;}
-.booking-course-square-link{display:flex;align-items:center;justify-content:center;min-height:48px;margin:0 17px 17px;text-align:center;}
+.booking-course-square-link{display:flex;align-items:center;justify-content:center;min-height:60px;margin:0 17px 17px;padding:8px 14px;text-align:center;}
 .booking-actions{display:flex;justify-content:flex-end;margin-top:22px;}
 .booking-actions-between{justify-content:space-between;}
 .booking-next,.booking-submit{border:0;cursor:pointer;}
