@@ -6,6 +6,7 @@
   --paper:#fffdf9;
   --gold:#b99a5b;
   --gold-soft:#d9c69a;
+  --brand-blue:#75a7ff;
   --ink:#2a2620;
   --ink-soft:#5c574c;
   --line:rgba(185,154,91,0.35);
@@ -60,7 +61,7 @@ header.site{
   transition:opacity .25s ease;
 }
 .brand:hover{opacity:.82;}
-.brand em{font-style:normal;color:var(--gold-soft);}
+.brand em{font-style:normal;color:var(--brand-blue);}
 .nav ul{list-style:none;display:flex;gap:26px;flex-wrap:wrap;align-items:center;}
 .nav a{
   color:rgba(246,242,234,.78);
