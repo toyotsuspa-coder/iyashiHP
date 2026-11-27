@@ -178,7 +178,7 @@ Square既存予約URL: https://book.squareup.com/appointments/qrmx4sel5mvql1/loc
 LINE: https://lin.ee/oOkH3GL
 電話: 050-1809-0184
 住所: 大阪府吹田市垂水町2丁目1-5 豊津駅前ビル2F
-営業時間: 10:00-23:00（Square実設定と一致させる）
+営業時間: 9:00-23:00（Square実設定と一致させる）
 
 ## 受け入れ条件
 - スマホでコース→日時を簡単に選択可能
